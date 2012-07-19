@@ -264,6 +264,14 @@ please email kevinh@geeksville.com.</string>
 	<string name="lift_tone_frequency_hz_">Lift tone frequency (Hz)</string>
 	<string name="sink_tone_frequency_hz_">Sink tone frequency (Hz)</string>
 	<string name="sink_tone">Sink tone</string>
+
+	<string name="elevation_limit">Elevation limit</string>
+	<string name="elevation_limit_m_">Max. elevation before alarm sounds</string>
+	<string name="alarm_tone">Alarm tone</string>
+	<string name="alarm_tone_frequency_hz_">Alarm tone frequency (Hz)</string>
+	<string name="alarm_beep_rate">Alarm beep rate</string>
+	<string name="alarm_beep_rate_hz_">Beep rate of elevation alarm (Hz)</string>
+
 	<string name="vertical_speed">Vertical Speed</string>
 	<string name="vspd">VSpd</string>
 	

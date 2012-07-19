@@ -29,7 +29,7 @@ public class TonePlayer {
   // originally from
   // http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
   // and modified by Steve Pomeroy <steve@staticfree.info>
-  private final float duration = 0.05f; // seconds
+  private final float duration = 0.1f; // seconds
   private final int sampleRate = 8000;
   private final int numSamples = (int) (duration * sampleRate);
 

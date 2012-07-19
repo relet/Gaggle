@@ -43,6 +43,7 @@ public class AudioVario implements Observer, Runnable,
   private TonePlayer liftTone;
   private TonePlayer sinkTone;
   private TonePlayer curTone;
+  private TonePlayer alarmTone;
 
   private IBarometerClient baro;
   Handler handler;
@@ -58,6 +59,9 @@ public class AudioVario implements Observer, Runnable,
   float minLiftThreshold = 0.5f;
   float maxLiftThreshold = 4.0f;
   float minLiftHz = 1f, maxLiftHz = 10f;
+  
+  float elevationHz = .5f;
+  float elevationLimit = Float.MAX_VALUE;
 
   private Context context;
 
@@ -87,6 +91,8 @@ public class AudioVario implements Observer, Runnable,
           1100f));
       sinkTone = new TonePlayer(PreferenceUtil.getFloat(context, "sinkTone",
           220f));
+      alarmTone = new TonePlayer(PreferenceUtil.getFloat(context, "alarmTone",
+          500f));
 
       minSinkThreshold = PreferenceUtil.getFloat(context, "minSinkThreshold",
           2.0f);
@@ -102,11 +108,12 @@ public class AudioVario implements Observer, Runnable,
       minLiftHz = PreferenceUtil.getFloat(context, "minLiftHz", 1f);
       maxLiftHz = PreferenceUtil.getFloat(context, "maxLiftHz", 10f);
 
+      elevationHz = PreferenceUtil.getFloat(context, "alarmHz", .5f);
+      elevationLimit = PreferenceUtil.getFloat(context, "elevationLimit", Float.MAX_VALUE);
+      
       baro = BarometerClient.create(context);
       if (baro != null)
         baro.addObserver(this);
-
-      // testTones();
     }
   }
 
@@ -120,32 +127,13 @@ public class AudioVario implements Observer, Runnable,
       liftTone.close();
     if (sinkTone != null)
       sinkTone.close();
+    if (alarmTone != null)
+      alarmTone.close();
   }
 
   @Override
   public void update(Observable observable, Object data) {
-    updateTone(baro.getVerticalSpeed());
-  }
-
-  public void testTones() {
-    Thread t = new Thread(new Runnable() {
-
-      @Override
-      public void run() {
-        // TODO Auto-generated method stub
-        for (float f = -maxSinkThreshold; f <= maxLiftThreshold; f += 0.2f) {
-          updateTone(f);
-          try {
-            Thread.sleep(2 * 1000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
-        }
-      }
-    }, "TestTones");
-
-    t.start();
+    updateTone(baro.getVerticalSpeed(), baro.getAltitude());
   }
 
   private static float interpolate(float x0, float x1, float y0, float y1,
@@ -153,10 +141,13 @@ public class AudioVario implements Observer, Runnable,
     return y0 + ((x - x0) * y1 - (x - x0) * y0) / (x1 - x0);
   }
 
-  private void updateTone(float vs) {
+  private void updateTone(float vs, float alt) {
 
     float beepHz;
-    if (vs >= minLiftThreshold) {
+    if (alt > elevationLimit) {
+      beepHz = elevationHz;
+      curTone = alarmTone;
+    } else if (vs >= minLiftThreshold) {
       if (vs > maxLiftThreshold)
         vs = maxLiftThreshold; // clamp
 
@@ -174,7 +165,6 @@ public class AudioVario implements Observer, Runnable,
       beepHz = -1f; // Turn tone off
 
     beepDelayMsec = (int) (1000 / beepHz);
-    Log.d(TAG, "vs=" + vs + " -> hz=" + beepHz + " delay=" + beepDelayMsec);
     startTone();
   }
 

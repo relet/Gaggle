@@ -115,6 +115,21 @@
 				android:key="sinkTone" android:title="@string/sink_tone"
 				android:summary="@string/sink_tone_frequency_hz_"
 				android:defaultValue="220" android:inputType="numberDecimal" />																
+
+			<com.geeksville.view.EditTextPreferenceWithValue
+				android:key="elevationLimit" android:title="@string/elevation_limit"
+				android:summary="@string/elevation_limit_m_"
+				android:defaultValue="5000" android:inputType="numberDecimal" />																
+
+			<com.geeksville.view.EditTextPreferenceWithValue
+				android:key="alarmHz" android:title="@string/alarm_beep_rate"
+				android:summary="@string/alarm_beep_rate_hz_"
+				android:defaultValue="0.5" android:inputType="numberDecimal" />		
+				
+			<com.geeksville.view.EditTextPreferenceWithValue
+				android:key="alarmTone" android:title="@string/alarm_tone"
+				android:summary="@string/alarm_tone_frequency_hz_"
+				android:defaultValue="500" android:inputType="numberDecimal" />																
         		
 		</PreferenceScreen>
 				
