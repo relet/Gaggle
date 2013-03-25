@@ -53,6 +53,7 @@ public class InfoListView extends ListView {
       "com.geeksville.info.InfoVerticalSpeed",
       "com.geeksville.info.InfoGlideRatio", "com.geeksville.info.InfoAltitude",
       "com.geeksville.info.InfoGroundSpeed",
+      "com.geeksville.info.InfoWindSpeed",
       "com.geeksville.info.InfoDistWaypoint",
       "com.geeksville.info.InfoGRWaypoint",
       "com.geeksville.info.InfoNearestLZ",

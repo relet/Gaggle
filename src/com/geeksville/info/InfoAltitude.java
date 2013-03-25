@@ -36,8 +36,6 @@ public class InfoAltitude extends GPSField implements Observer {
 	private IBarometerClient baro;
 
 	public InfoAltitude() {
-		// minDistMeters = 0; // We want updates even if horizontal pos hasn't
-		// changed
 	}
 
 	/**

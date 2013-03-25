@@ -41,6 +41,7 @@ public class BarometerClient {
 
     SensorClient.initManager(context);
 
+    instance = null; // ignore any previously discovered devices - TODO: check if we need to reset
     // Prefer to use external bluetooth device
     if (instance == null && FlynetBarometerClient.isAvailable())
       instance = new FlynetBarometerClient(context);

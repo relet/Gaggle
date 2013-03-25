@@ -79,7 +79,7 @@ public class TopActivity extends TabActivity {
     spec.setIndicator(null,
         getResources().getDrawable(android.R.drawable.ic_menu_mapmode));
     spec.setContent(FlyMapActivity.createIntentLive(this));
-    tabHost.addTab(spec);
+    tabHost.addTab(spec);   
   }
 
   /**
